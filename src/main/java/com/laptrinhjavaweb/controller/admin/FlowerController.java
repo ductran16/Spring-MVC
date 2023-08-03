@@ -6,13 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 @Controller(value = "flowerController")
 public class FlowerController {
@@ -20,7 +17,7 @@ public class FlowerController {
     @Autowired
     private IFlowerService flowerService;
 
-    @RequestMapping(value = "/quan-tri/hoa/danh-sach", method = RequestMethod.GET)
+    @GetMapping(value = "/quan-tri/hoa/danh-sach")
     public ModelAndView showList(@RequestParam("page") int page,
                                  @RequestParam("limit") int limit, HttpServletRequest request){
 
@@ -43,9 +40,17 @@ public class FlowerController {
         return mav;
     }
 
-    @RequestMapping(value = "/quan-tri/hoa/chinh-sua", method = RequestMethod.GET)
-    public ModelAndView editFlower(){
+    @GetMapping (value = "/quan-tri/hoa/chinh-sua")
+    public ModelAndView editFlower(@RequestParam(value = "id", required = false) Long id){
         ModelAndView mav = new ModelAndView("admin/flower/edit");
+        FlowerDTO model = new FlowerDTO();
+        if(id != null){
+            model = flowerService.findById(id);
+        }
+        System.out.println("vao do get");
+        mav.addObject("model", model);
         return mav;
     }
+
+
 }

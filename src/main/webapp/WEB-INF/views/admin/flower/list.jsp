@@ -31,9 +31,10 @@
                             <div class="table-btn-controls">
                                 <div class="pull-right tableTools-container">
                                     <div class="dt-buttons btn-overlap btn-group">
+                                        <c:url var="createFlowerURL" value="/quan-tri/hoa/chinh-sua"/>
                                         <a flag="info"
                                            class="dt-button buttons-colvis btn btn-white btn-primary btn-bold" data-toggle="tooltip"
-                                           title='Thêm hoa' href='#'>
+                                           title='Thêm hoa' href='${createFlowerURL}'>
 															<span>
 																<i class="fa fa-plus-circle bigger-110 purple"></i>
 															</span>
@@ -65,8 +66,11 @@
                                                 <td>${item.name}</td>
                                                 <td>${item.price}</td>
                                                 <td>
+                                                    <c:url var="updateFlowerURL" value="/quan-tri/hoa/chinh-sua">
+                                                        <c:param name="id" value="${item.id}"/>
+                                                    </c:url>
                                                     <a class="btn btn-sm btn-primary btn-edit" data-toggle="tooltip"
-                                                       title="Cập nhật hoa" href='#'><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                       title="Cập nhật hoa" href='${updateFlowerURL}'><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                                     </a>
                                                 </td>
                                             </tr>
